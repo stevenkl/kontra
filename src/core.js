@@ -62,7 +62,12 @@ export function init(canvas) {
 
   // @if DEBUG
   if (!canvasEl) {
-    throw Error('You must provide a canvas element for the game');
+    let elem = document.createElement("canvas");
+    document.body.appendChild(elem);
+    elem.style.width = 512;
+    elem.style.height = 512;
+    canvasEl = elem;
+    // throw Error('You must provide a canvas element for the game');
   }
   // @endif
 

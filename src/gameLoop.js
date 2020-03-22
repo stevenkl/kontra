@@ -95,6 +95,7 @@ export default function GameLoop({fps = 60, clearCanvas = true, update, render} 
 
     clearFn();
     loop.render();
+    emit('tock');
   }
 
   // game loop object
