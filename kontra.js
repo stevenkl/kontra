@@ -815,6 +815,7 @@ function GameLoop({fps = 60, clearCanvas = true, update, render} = {}) {
   let step = 1 / fps;
   let clearFn = clearCanvas ? clear : noop;
   let last, rAF, now, dt, loop;
+  const performance = window.performance || Date;
 
   /**
    * Called every frame of the game loop.
@@ -1504,6 +1505,9 @@ function pointerHandler(evt, eventName) {
       clientX = evt.changedTouches[i].clientX; // Save for later
       clientY = evt.changedTouches[i].clientY;
 
+      pointer.x = (clientX - rect.left) * ratio;
+      pointer.y = (clientY - rect.top) * ratio;
+
       // Trigger events
       let object = getCurrentObject({
         id,
@@ -1523,10 +1527,9 @@ function pointerHandler(evt, eventName) {
   } else {
     clientX = evt.clientX;
     clientY = evt.clientY;
+    pointer.x = (clientX - rect.left) * ratio;
+    pointer.y = (clientY - rect.top) * ratio;
   }
-
-  pointer.x = (clientX - rect.left) * ratio;
-  pointer.y = (clientY - rect.top) * ratio;
 
   evt.preventDefault();
 
@@ -2981,7 +2984,6 @@ class Sprite {
     if (this.image) {
       this.context.drawImage(
         this.image,
-        0, 0, this.image.width, this.image.height,
         anchorWidth, anchorHeight, this.width, this.height
       );
     }
